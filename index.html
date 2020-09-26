@@ -14,11 +14,11 @@
 
 		<script type="module">
 
-			import * as THREE from './three/build/three.module.js';
+			import * as THREE from 'https://unpkg.com/three@0.120.0/build/three.module.js';
 
-			import { OrbitControls } from './three/examples/jsm/controls/OrbitControls.js';
-			import { GLTFLoader } from './three/examples/jsm/loaders/GLTFLoader.js';
-			import { RGBELoader } from './three/examples/jsm/loaders/RGBELoader.js';
+			import { OrbitControls } from 'https://unpkg.com/three@0.120.0/examples/jsm/controls/OrbitControls.js';
+			import { GLTFLoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/GLTFLoader.js';
+			import { RGBELoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/RGBELoader.js';
 
 			var container, controls;
 			var camera, scene, renderer;
@@ -38,7 +38,7 @@
 
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
-					.setPath( './three/examples/textures/equirectangular/' )
+					.setPath( './assets/' )
 					.load( 'quarry_01_1k.hdr', function ( texture ) {
 
 						var envMap = pmremGenerator.fromEquirectangular( texture ).texture;

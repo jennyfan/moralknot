@@ -1,14 +1,2 @@
 .DS_Store
-three/docs/*
-three/editor/*
-three/examples/*
-three/files/*
-three/icon.png
-three/LICENSE
-three/package-lock.json
-three/package.json
-three/README.md
-three/src/*
-three/test/*
-three/utils/*
-knot.html
+three/*
