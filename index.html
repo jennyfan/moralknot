@@ -39,7 +39,7 @@
 				new RGBELoader()
 					.setDataType( THREE.UnsignedByteType )
 					.setPath( './assets/' )
-					.load( 'quarry_01_1k.hdr', function ( texture ) {
+					.load( 'sunset.hdr', function ( texture ) {
 
 						var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
 
