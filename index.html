@@ -3,116 +3,28 @@
 	<head>
 		<title>Moral Labyrinth</title>
 		<meta charset="utf-8">
-		<style>
-			body { margin: 0; }
-			canvas { display: block; }
-		</style>
+		<link rel="stylesheet" href="assets/style.css" type="text/css" />
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 	</head>
 
 	<body>
+		<section id="main"></section>
 
-		<script type="module">
+		<section id="loading-screen">
+			<!-- Loading credits:
+				https://jsfiddle.net/8w3deqyg/
+				https://dribbble.com/shots/5092176-Newton-Loader -->		
+			<div class="gooey">
+				<span class="dot"></span>
+				<div class="dots">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+			</div>
+		</section>
 
-			import * as THREE from 'https://unpkg.com/three@0.120.0/build/three.module.js';
-
-			import { OrbitControls } from 'https://unpkg.com/three@0.120.0/examples/jsm/controls/OrbitControls.js';
-			import { GLTFLoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/GLTFLoader.js';
-			import { RGBELoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/RGBELoader.js';
-
-			var container, controls;
-			var camera, scene, renderer;
-
-			init();
-			render();
-
-			function init() {
-
-				container = document.createElement( 'div' );
-				document.body.appendChild( container );
-
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 100 );
-				camera.position.set( 0, 0, 25 );
-
-				scene = new THREE.Scene();
-
-				new RGBELoader()
-					.setDataType( THREE.UnsignedByteType )
-					.setPath( './assets/' )
-					.load( 'sunset.hdr', function ( texture ) {
-
-						var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
-
-						scene.background = envMap;
-						scene.environment = envMap;
-
-						texture.dispose();
-						pmremGenerator.dispose();
-
-						render();
-
-						// model
-
-						var loader = new GLTFLoader().setPath( './assets/' );
-						loader.load( 'knot.glb', function ( gltf ) {
-
-							gltf.scene.traverse( function ( child ) {
-
-								if ( child.isMesh ) {
-								}
-
-							} );
-
-							scene.add( gltf.scene );
-
-							render();
-
-						} );
-
-					} );
-
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 1;
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				container.appendChild( renderer.domElement );
-
-				var pmremGenerator = new THREE.PMREMGenerator( renderer );
-				pmremGenerator.compileEquirectangularShader();
-
-				controls = new OrbitControls( camera, renderer.domElement );
-				controls.addEventListener( 'change', render ); // use if there is no animation loop
-				controls.minDistance = 10;
-				controls.maxDistance = 40;
-				controls.target.set( 0, 0, 0 );
-				controls.update();
-
-				window.addEventListener( 'resize', onWindowResize, false );
-
-			}
-
-			function onWindowResize() {
-
-				camera.aspect = window.innerWidth / window.innerHeight;
-				camera.updateProjectionMatrix();
-
-				renderer.setSize( window.innerWidth, window.innerHeight );
-
-				render();
-
-			}
-
-			//
-
-			function render() {
-
-				renderer.render( scene, camera );
-
-			}
-
-		</script>
+		<script type="module" src="assets/script.js"></script>
 
 	</body>
 </html>
