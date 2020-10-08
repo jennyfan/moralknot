@@ -1,4 +1,3 @@
-
 import * as THREE from 'https://unpkg.com/three@0.120.0/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.120.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/GLTFLoader.js';
@@ -8,16 +7,25 @@ import { ColladaLoader} from 'https://unpkg.com/three@0.120.0/examples/jsm/loade
 var container, controls, camera, scene, renderer;
 
 init();
-render();
+animate();
+
+// document.body.onkeyup = function(e) {
+//     if (e.keyCode == 32) {
+//         animating = !animating;
+//     }
+// }
 
 function init() {
     container = document.getElementById('main');
 
     // create camera and scene
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 100 );
-    camera.position.set( 0, 0, 25 );
     scene = new THREE.Scene();
 
+    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 100 );
+    camera.position.set( 0, -10, 25 );
+    camera.lookAt(scene.position);
+
+    
     // pre-load
     const loadingManager = new THREE.LoadingManager( () => {
         const loadingScreen = document.getElementById( 'loading-screen' );
@@ -84,10 +92,23 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
-    render();
+    // render();
+}
+
+function animate() {
+    requestAnimationFrame( animate );
+    
+	render();
 }
 
 function render() {
+    //using timer as animation
+    var speed = Date.now() * 0.0001;
+    camera.position.x = Math.cos(speed) * 10;
+    // camera.position.z = Math.sin(speed) * 10;
+  
+    camera.lookAt(scene.position); //0,0,0
+
     renderer.render( scene, camera );
 }
 
