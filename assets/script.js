@@ -2,7 +2,6 @@ import * as THREE from 'https://unpkg.com/three@0.120.0/build/three.module.js';
 import { OrbitControls } from 'https://unpkg.com/three@0.120.0/examples/jsm/controls/OrbitControls.js';
 import { GLTFLoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/RGBELoader.js';
-import { ColladaLoader} from 'https://unpkg.com/three@0.120.0/examples/jsm/loaders/ColladaLoader.js';
 
 var container, controls, camera, scene, renderer;
 
@@ -21,8 +20,12 @@ function init() {
     // create camera and scene
     scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 100 );
-    camera.position.set( 0, 10, 25 );
+    const fov = 45;
+    const aspect = window.innerWidth / window.innerHeight;
+    const near = 0.5;
+    const far = 100;
+    camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+    camera.position.set( 0, 3, 24 );
     camera.lookAt(scene.position);
 
     
@@ -33,7 +36,7 @@ function init() {
         loadingScreen.addEventListener( 'transitionend', onTransitionEnd );
     } );
 
-    // load assets
+    // load environment
     new RGBELoader( loadingManager )
         .setDataType( THREE.UnsignedByteType )
         .setPath( './assets/' )
@@ -44,17 +47,18 @@ function init() {
             texture.dispose();
             pmremGenerator.dispose();
             render();
+        } );
 
-            // load model (knot)
-            var loader = new GLTFLoader( loadingManager ).setPath( './assets/' );
-            loader.load( 'knot.glb', function ( gltf ) {
-                gltf.scene.traverse( function ( child ) {
-                    if ( child.isMesh ) {
-                    }
-                } );
-                scene.add( gltf.scene );
-                render();
+    // load model
+    new GLTFLoader( loadingManager )
+        .setPath( './assets/' )
+        .load( 'knot.glb', function ( gltf ) {
+            gltf.scene.traverse( function ( child ) {
+                if ( child.isMesh ) {
+                }
             } );
+            scene.add( gltf.scene );
+            render();
         } );
 
     // const ambientLight = new THREE.AmbientLight( 0xffffff, 0.5 );
@@ -104,7 +108,7 @@ function animate() {
 function render() {
     //using timer as animation
     var speed = Date.now() * 0.0001;
-    camera.position.x = Math.cos(speed) * 10;
+    camera.position.x = Math.cos(speed) * -10;
     // camera.position.z = Math.sin(speed) * 10;
   
     camera.lookAt(scene.position); //0,0,0
