@@ -22,7 +22,7 @@ function init() {
     scene = new THREE.Scene();
 
     camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.5, 100 );
-    camera.position.set( 0, -10, 25 );
+    camera.position.set( 0, 10, 25 );
     camera.lookAt(scene.position);
 
     
@@ -37,7 +37,7 @@ function init() {
     new RGBELoader( loadingManager )
         .setDataType( THREE.UnsignedByteType )
         .setPath( './assets/' )
-        .load( 'sunset.hdr', function ( texture ) {
+        .load( 'clear_2k.hdr', function ( texture ) {
             var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
             scene.background = envMap;
             scene.environment = envMap;
