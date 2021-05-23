@@ -8,5 +8,9 @@ Version 1 uses these assets to display white text on an HDR background, swivelin
 * clear_2k.hdr
 * knot.glb
 
+ ![V1, with background and mouse panning](moralknot-v1.png)
+
 Version 2 (branched: followknot) has no background, and uses a different .glb asset that is updated to track movement with `space`.
-* knot2.glb
+* knot.glb (not really sure what knot2.glb is used for)
+
+ ![V2, with follow spline camera](moralknot-v2.png)
