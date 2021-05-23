@@ -9,4 +9,4 @@ Version 1 uses these assets to display white text on an HDR background, swivelin
 * knot.glb
 
 Version 2 (branched: followknot) has no background, and uses a different .glb asset that is updated to track movement with `space`.
-* knot2.glb
+* knot.glb
