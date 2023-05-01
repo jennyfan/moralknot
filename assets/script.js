@@ -40,7 +40,7 @@ function init() {
     new RGBELoader( loadingManager )
         .setDataType( THREE.UnsignedByteType )
         .setPath( './assets/' )
-        .load( 'clear_2k.hdr', function ( texture ) {
+        .load( 'sunset.hdr', function ( texture ) {
             var envMap = pmremGenerator.fromEquirectangular( texture ).texture;
             scene.background = envMap;
             scene.environment = envMap;
